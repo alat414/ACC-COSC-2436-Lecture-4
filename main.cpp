@@ -28,7 +28,7 @@ ConnectionVector loadConnections(const char* flight_routes_file)
     {
         throw std::runtime_error("unable to open file");
     }
-    
+
     std::string origin_city;
     std::string destination_city;
 
@@ -74,7 +74,7 @@ int main()
 
     for (auto &flights : flight_display)
     {
-        std::cout << flights.first << "," << flights.second << std::endl;
+        std::cout << flights.first << " , " << flights.second << std::endl;
     }
     /*
     auto city_display = loadCityNames("city_list.txt");
