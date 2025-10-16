@@ -74,7 +74,7 @@ int main()
 
     for (auto &flights : flight_display)
     {
-        std::cout << flights.first << " , " << flights.second << std::endl;
+        std::cout << flights.first << " " << flights.second << std::endl;
     }
     /*
     auto city_display = loadCityNames("city_list.txt");
