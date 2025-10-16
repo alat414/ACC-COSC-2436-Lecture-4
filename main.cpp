@@ -74,6 +74,11 @@ AdjacencyList loadAdjacencyList(const std::vector<CityName>& cityNames,
                                 const char* flight_routes_name)
 {
     AdjacencyList adjacency_list;
+
+    for (int i = 0; i < cityNames.size(); i++)
+    {
+        adjacency_list.emplace_back();
+    }
     
     ConnectionPairs connection_pairs = loadConnectionPairs(flight_routes_name);
     
