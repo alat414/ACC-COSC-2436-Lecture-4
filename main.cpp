@@ -55,12 +55,28 @@ ConnectionPairs loadConnectionPairs(const char* flight_routes_file)
 }
 
 using CityName = std::string;
+using AdjacencyList = std::vector<std::list<CityName>>;
+
+AdjacencyList loadAdjacencyList(std::vector<CityName> cityNames, 
+                                    const char* flight_routes_name)
+{
+    AdjacencyList adjacency_list;
+    
+    ConnectionPairs connection_pairs = loadConnectionPairs(flight_routes_name);
+    
+    for (const auto& connection_pair : connection_pairs)
+    {
+
+    }
+    return adjacency_list;
+}
+
 
 class flightMap
 {
     private:
         std::vector<CityName> cityNames;
-        std::vector<std::list<CityName>> connections;
+        AdjacencyList connections;
 
 
         int indexFromCityName(const std::string &city_name) const
