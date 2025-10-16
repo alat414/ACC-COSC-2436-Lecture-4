@@ -13,12 +13,17 @@ std::vector<std::string> loadCityNames(const char* city_list_name)
 {
     std::vector<std::string> city_names;
     std::ifstream file_object(city_list_name);
-    std::string city_name;
-    while (!file_object.eof())
-    {
-        std::getline(file_object, city_name);
-        city_names.push_back(city_name);
 
+    if (!file_object.is_open())
+    {
+        throw std::runtime_error("Unable to open file");
+    }
+
+    std::string city_name;
+    
+    while (std::getline(file_object, city_name))
+    {
+        city_names.push_back(city_name);
     }
     return city_names;
 }
@@ -28,6 +33,7 @@ using ConnectionPairs = std::vector<std::pair<std::string, std::string>>;
 ConnectionPairs loadConnectionPairs(const char* flight_routes_file)
 {
     ConnectionPairs connection_pairs;
+    
     std::ifstream file_object(flight_routes_file);
 
     if(!file_object.is_open())
@@ -124,9 +130,9 @@ class flightMap
 
 int main()
 {
-    flightMap flightMap("city_list.txt", "flight_routes.txt");
+    flightMap flight_Map("city_list.txt", "flight_routes.txt");
 
-    flightMap.display_connections();
+    flight_Map.display_connections();
     /*
     auto city_display = loadCityNames("city_list.txt");
     for (auto & city:city_display)
