@@ -14,6 +14,7 @@ std::vector<std::string> loadCityNames(const char* city_list_name)
         city_names.push_back(city_name);
 
     }
+    return city_names;
 }
 
 class flightMap
