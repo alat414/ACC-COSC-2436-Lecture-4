@@ -122,7 +122,7 @@ class flightMap
 
                 for (auto index: connection)
                 {
-                    std::cout<< "\tindex: " << index << "name: " << cityNames[index] << std::endl;
+                    std::cout<< "\t" << index << std::endl;
                 }
             }
         }
