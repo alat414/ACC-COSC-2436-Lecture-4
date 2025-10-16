@@ -56,7 +56,8 @@ ConnectionPairs loadConnectionPairs(const char* flight_routes_file)
 
 using CityIndex = size_t;
 using CityName = std::string;
-using AdjacencyList = std::vector<std::list<CityName>>;
+using CityConnections = std::list<CityIndex>;
+using AdjacencyList = std::vector<CityConnections>;
 
 int indexFromCityName(const std::vector<CityName>& cityNames,
                       const std::string & city_name)
@@ -86,6 +87,7 @@ AdjacencyList loadAdjacencyList(const std::vector<CityName>& cityNames,
     {
         CityIndex city_1_index = indexFromCityName(cityNames, connection_pair.first);
         CityIndex city_2_index = indexFromCityName(cityNames, connection_pair.second);
+        adjacency_list[city_1_index].push_back(city_2_index);
     }
     return adjacency_list;
 }
@@ -99,20 +101,32 @@ class flightMap
 
     public:
         flightMap(const char* city_list_name, const char* flight_routes_name) :
-        cityNames(loadCityNames(city_list_name))
+        cityNames(loadCityNames(city_list_name)), 
+        connections(loadAdjacencyList(cityNames, flight_routes_name))
         {
+        }
 
+        void display_connections() const 
+        {
+            for (int i = 0; i < cityNames.size(); i++)
+            {
+                std::cout << cityNames[i] << " ";
+                std::cout << "connections: ";
+                const auto &connection = connections[i];
+
+                for (auto index: connection)
+                {
+                    std::cout<< "\t" << index << std::endl;
+                }
+            }
         }
 };
 
 int main()
 {
-    auto flight_display = loadConnectionPairs("flight_routes.txt");
+    flightMap flightMap("city_list.txt", "flight_routes.txt");
 
-    for (auto &flights : flight_display)
-    {
-        std::cout << flights.first << "     " << flights.second << std::endl;
-    }
+    flightMap.display_connections();
     /*
     auto city_display = loadCityNames("city_list.txt");
     for (auto & city:city_display)
