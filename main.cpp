@@ -21,6 +21,18 @@ class flightMap
 {
     private:
         std::vector<std::string> cityNames;
+
+        int indexFromCityName(const std::string &city_name) const
+        {
+            for (int i = 0; i < cityNames.size(); i++)
+            {
+                if (cityNames[i] == city_name)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
     public:
         flightMap(const char* city_list_name, const char* flight_routes_name)
         {
