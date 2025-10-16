@@ -5,7 +5,15 @@
 
 std::vector<std::string> loadCityNames(const char* city_list_name)
 {
-    std::ifstream fill_object(city_list_name);
+    std::vector<std::string> city_names;
+    std::ifstream file_object(city_list_name);
+    std::string city_name;
+    while (!file_object.eof())
+    {
+        std::getline(file_object, city_name);
+        city_names.push_back(city_name);
+
+    }
 }
 
 class flightMap
