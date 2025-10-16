@@ -28,6 +28,7 @@ ConnectionVector loadConnections(const char* flight_routes_file)
     {
         throw std::runtime_error("unable to open file");
     }
+    
     std::string origin_city;
     std::string destination_city;
 
