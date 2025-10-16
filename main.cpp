@@ -23,11 +23,11 @@ std::vector<std::string> loadCityNames(const char* city_list_name)
     return city_names;
 }
 
-using ConnectionVector = std::vector<std::pair<std::string, std::string>>;
+using ConnectionPairs = std::vector<std::pair<std::string, std::string>>;
 
-ConnectionVector loadConnections(const char* flight_routes_file)
+ConnectionPairs loadConnectionPairs(const char* flight_routes_file)
 {
-    ConnectionVector connections;
+    ConnectionPairs connection_pairs;
     std::ifstream file_object(flight_routes_file);
 
     if(!file_object.is_open())
@@ -44,19 +44,24 @@ ConnectionVector loadConnections(const char* flight_routes_file)
         if (std::getline(file_object, destination_city))
         {
             removeWhiteSpace(destination_city);
-            connections.push_back(std::make_pair(origin_city,destination_city));
+            connection_pairs.push_back(std::make_pair(origin_city,destination_city));
         }
         else
         {
             throw std::runtime_error("Could not parse file");
         }
     }
-    return connections;
+    return connection_pairs;
 }
+
+using CityName = std::string;
+
 class flightMap
 {
     private:
-        std::vector<std::string> cityNames;
+        std::vector<CityName> cityNames;
+        std::vector<std::list<CityName>> connections;
+
 
         int indexFromCityName(const std::string &city_name) const
         {
@@ -70,7 +75,8 @@ class flightMap
             return -1;
         }
     public:
-        flightMap(const char* city_list_name, const char* flight_routes_name)
+        flightMap(const char* city_list_name, const char* flight_routes_name) :
+        cityNames(loadCityNames(city_list_name))
         {
 
         }
@@ -78,7 +84,7 @@ class flightMap
 
 int main()
 {
-    auto flight_display = loadConnections("flight_routes.txt");
+    auto flight_display = loadConnectionPairs("flight_routes.txt");
 
     for (auto &flights : flight_display)
     {
