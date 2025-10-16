@@ -3,6 +3,12 @@
 #include <list>
 #include <fstream>
 
+void removeWhiteSpace(std::string& name)
+{
+    name.erase(0, name.find_first_not_of(" \t"));
+    name.erase(name.find_last_not_of(" \t") + 1);
+}
+
 std::vector<std::string> loadCityNames(const char* city_list_name)
 {
     std::vector<std::string> city_names;
@@ -34,8 +40,10 @@ ConnectionVector loadConnections(const char* flight_routes_file)
 
     while (std::getline(file_object, origin_city, ','))
     {
+        removeWhiteSpace(origin_city);
         if (std::getline(file_object, destination_city))
         {
+            removeWhiteSpace(destination_city);
             connections.push_back(std::make_pair(origin_city,destination_city));
         }
         else
@@ -74,7 +82,7 @@ int main()
 
     for (auto &flights : flight_display)
     {
-        std::cout << flights.first << " " << flights.second << std::endl;
+        std::cout << flights.first << "     " << flights.second << std::endl;
     }
     /*
     auto city_display = loadCityNames("city_list.txt");
