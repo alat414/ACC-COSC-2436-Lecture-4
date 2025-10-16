@@ -54,11 +54,24 @@ ConnectionPairs loadConnectionPairs(const char* flight_routes_file)
     return connection_pairs;
 }
 
+using CityIndex = size_t;
 using CityName = std::string;
 using AdjacencyList = std::vector<std::list<CityName>>;
 
-AdjacencyList loadAdjacencyList(std::vector<CityName> cityNames, 
-                                    const char* flight_routes_name)
+int indexFromCityName(const std::vector<CityName>& cityNames,
+                      const std::string & city_name)
+{
+    for (int i = 0; i < cityNames.size(); i++)
+    {
+        if (cityNames[i] == city_name)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+AdjacencyList loadAdjacencyList(const std::vector<CityName>& cityNames, 
+                                const char* flight_routes_name)
 {
     AdjacencyList adjacency_list;
     
@@ -66,7 +79,8 @@ AdjacencyList loadAdjacencyList(std::vector<CityName> cityNames,
     
     for (const auto& connection_pair : connection_pairs)
     {
-
+        CityIndex city_1_index = indexFromCityName(cityNames, connection_pair.first);
+        CityIndex city_2_index = indexFromCityName(cityNames, connection_pair.second);
     }
     return adjacency_list;
 }
