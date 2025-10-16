@@ -29,5 +29,10 @@ class flightMap
 
 int main()
 {
+    auto city_display = loadCityNames("city_list.txt");
+    for (auto & city:city_display)
+    {
+        std::cout << city << std::endl;
+    }
 
 }
