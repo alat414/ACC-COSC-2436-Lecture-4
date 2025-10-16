@@ -69,10 +69,18 @@ class flightMap
 
 int main()
 {
+    auto flight_display = loadConnections("flight_routes.txt");
+
+    for (auto &flights : flight_display)
+    {
+        std::cout << flights.first << "," << flights.second << std::endl;
+    }
+    /*
     auto city_display = loadCityNames("city_list.txt");
     for (auto & city:city_display)
     {
         std::cout << city << std::endl;
     }
 
+    */
 }
