@@ -118,12 +118,12 @@ class flightMap
             {
                 std::cout << cityNames[i] << " ";
 
-                std::cout << "connections: \n";
+                std::cout << "connections: " << std::endl;
                 const auto  &connection = connections[i];
 
                 for (auto index: connection)
                 {
-                    std::cout<< "\t" << index << std::endl;
+                    std::cout<< "\tindex: " << index << "name: " << cityNames[index] <<std::endl;
                 }
             }
         }
