@@ -117,7 +117,7 @@ class flightMap
             for (int i = 0; i < cityNames.size(); i++)
             {
                 std::cout << cityNames[i] << " ";
-                std::cout << "connections: " << std::endl;
+                std::cout << "connections: ";
                 const auto &connection = connections[i];
 
                 for (auto index: connection)
